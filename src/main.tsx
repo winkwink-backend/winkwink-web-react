@@ -5,6 +5,8 @@ import { ColorProvider } from "./providers/ColorProvider"; // file aggiunto
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ColorProvider>
+      <App />
+    </ColorProvider>
   </StrictMode>
 )
