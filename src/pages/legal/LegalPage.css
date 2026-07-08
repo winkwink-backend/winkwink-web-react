@@ -1,0 +1,38 @@
+.legal-container {
+  padding: 24px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.legal-text-box {
+  flex: 1;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.05);
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.legal-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #cccccc;
+}
+
+.legal-checkbox-row {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  gap: 12px;
+}
+
+.legal-checkbox-label {
+  font-size: 16px;
+}
+
+.legal-loading {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+}

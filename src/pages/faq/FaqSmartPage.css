@@ -1,0 +1,60 @@
+.fs-container {
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fs-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  font-size: 16px;
+  color: white;
+}
+
+.fs-spacing {
+  height: 20px;
+}
+
+.fs-results {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.fs-no-results {
+  text-align: center;
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+.fs-answer-box {
+  padding: 12px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+}
+
+.fs-answer {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.fs-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fs-action-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: #00aaff;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}

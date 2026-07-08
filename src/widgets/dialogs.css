@@ -1,0 +1,42 @@
+.wink-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.wink-dialog {
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  color: white;
+  box-shadow: 0 0 12px rgba(255,255,255,0.25);
+}
+
+.wink-dialog h3 {
+  margin-top: 0;
+}
+
+.wink-dialog-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.wink-dialog-actions button {
+  background: #333;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.wink-dialog-actions button:hover {
+  background: #555;
+}

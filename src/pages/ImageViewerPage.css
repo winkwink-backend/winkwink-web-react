@@ -1,0 +1,13 @@
+.ivp-container {
+  background: black;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ivp-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}

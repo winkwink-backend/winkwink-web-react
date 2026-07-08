@@ -1,0 +1,54 @@
+.avp-container {
+  background: black;
+  height: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.avp-header {
+  padding: 12px;
+  background: rgba(0,0,0,0.4);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.avp-title {
+  color: white;
+}
+
+.avp-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avp-loading {
+  font-size: 18px;
+  color: #c99700;
+}
+
+.avp-icon {
+  font-size: 80px;
+  margin-bottom: 30px;
+}
+
+.avp-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.avp-neon-btn {
+  padding: 18px;
+  border-radius: 50%;
+  border: 3px solid #c99700;
+  box-shadow: 0 0 12px #c99700, 0 0 6px #c99700 inset;
+  cursor: pointer;
+}
+
+.avp-neon-icon {
+  font-size: 32px;
+  color: white;
+}

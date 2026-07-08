@@ -1,0 +1,61 @@
+.profile-container {
+    padding: 40px 24px;
+    color: white;
+    text-align: center;
+}
+
+.profile-title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.profile-avatar-box {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    object-fit: cover;
+    background: white;
+}
+
+.profile-avatar.placeholder {
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 70px;
+    color: #777;
+}
+
+.profile-btn {
+    margin-top: 20px;
+    padding: 14px 24px;
+    border-radius: 14px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.profile-section {
+    margin-top: 40px;
+}
+
+.profile-label {
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.profile-value {
+    margin-top: 6px;
+    font-size: 22px;
+    font-weight: bold;
+}

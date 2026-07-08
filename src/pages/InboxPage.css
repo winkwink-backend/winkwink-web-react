@@ -1,0 +1,48 @@
+.inbox-container {
+  padding: 12px;
+  color: white;
+}
+
+.inbox-empty {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+.inbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inbox-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.inbox-item:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.inbox-icon {
+  font-size: 26px;
+}
+
+.inbox-info {
+  flex: 1;
+}
+
+.inbox-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.inbox-subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+}

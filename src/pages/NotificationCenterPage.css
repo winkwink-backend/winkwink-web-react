@@ -1,0 +1,54 @@
+.ncp-container {
+  padding: 20px;
+  color: white;
+}
+
+.ncp-header {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.ncp-empty {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 16px;
+}
+
+.ncp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ncp-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.ncp-item:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.ncp-icon {
+  font-size: 32px;
+}
+
+.ncp-info {
+  flex: 1;
+}
+
+.ncp-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ncp-subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+}
