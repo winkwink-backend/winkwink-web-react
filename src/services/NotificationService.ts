@@ -3,7 +3,6 @@
 import { StorageService } from "./StorageService";
 import { ApiService } from "./ApiService";
 
-// ⭐ NotificationType compatibile con erasableSyntaxOnly
 export type NotificationType =
   | "info"
   | "warning"
@@ -21,16 +20,23 @@ export class NotificationService {
   static readonly instance = new NotificationService();
 
   private constructor() {
+    // Web: disattiva FCM
+    if (typeof window !== "undefined") {
+      console.log("🔕 FCM disattivato su web");
+      return;
+    }
+
+    // Android / Native
     this.listenToFcmStream();
   }
 
-  // ⭐ Stream FCM (web)
-  static readonly fcmStream = new BroadcastChannel("wink-fcm-stream");
+  // BroadcastChannel solo se disponibile
+  static readonly fcmStream =
+    typeof BroadcastChannel !== "undefined"
+      ? new BroadcastChannel("wink-fcm-stream")
+      : null;
 
-  // ⭐ Notifiche interne
   private notifications: Record<string, any>[] = [];
-
-  // ⭐ Listener React
   private listeners: Set<() => void> = new Set();
 
   subscribe(fn: () => void) {
@@ -48,58 +54,41 @@ export class NotificationService {
   get unreadCount(): number {
     return this.notifications.filter((n) => n.status === "pending").length;
   }
-  
+
   public getNotifications(): Record<string, any>[] {
     return this.notifications;
   }
-  
-  public get all(): Record<string, any>[] {
-  return this.notifications;
-}
 
-  // ------------------------------------------------------------
-  // CARICA NOTIFICHE DA STORAGE
-  // ------------------------------------------------------------
+  public get all(): Record<string, any>[] {
+    return this.notifications;
+  }
+
   async loadNotifications(): Promise<void> {
     const saved = await StorageService.loadNotifications();
     this.notifications = [...saved];
     this.notify();
   }
 
-  // ------------------------------------------------------------
-  // AGGIUNGI NOTIFICA
-  // ------------------------------------------------------------
   async addNotification(n: Record<string, any>): Promise<void> {
     this.notifications.push(n);
     await StorageService.saveNotifications(this.notifications);
     this.notify();
   }
 
-  // ------------------------------------------------------------
-  // AGGIORNA STATO
-  // ------------------------------------------------------------
   async updateStatus(id: string, status: string): Promise<void> {
     for (const n of this.notifications) {
-      if (n.id === id) {
-        n.status = status;
-      }
+      if (n.id === id) n.status = status;
     }
     await StorageService.saveNotifications(this.notifications);
     this.notify();
   }
 
-  // ------------------------------------------------------------
-  // RIMUOVI NOTIFICA
-  // ------------------------------------------------------------
   async removeNotification(n: Record<string, any>): Promise<void> {
     this.notifications = this.notifications.filter((x) => x !== n);
     await StorageService.saveNotifications(this.notifications);
     this.notify();
   }
 
-  // ------------------------------------------------------------
-  // NOTIFICA INTERNA
-  // ------------------------------------------------------------
   async addInternalNotification(params: {
     title: string;
     message: string;
@@ -119,9 +108,6 @@ export class NotificationService {
     this.notify();
   }
 
-  // ------------------------------------------------------------
-  // NOTIFICA: GALLERY PIENA
-  // ------------------------------------------------------------
   async notifyGalleryFull(): Promise<void> {
     await this.addInternalNotification({
       title: "WinkGallery piena",
@@ -131,9 +117,6 @@ export class NotificationService {
     });
   }
 
-  // ------------------------------------------------------------
-  // ALIAS REALTIME
-  // ------------------------------------------------------------
   async addAliasNotification(data: Record<string, any>): Promise<void> {
     const type = data.type;
 
@@ -163,9 +146,14 @@ export class NotificationService {
   }
 
   // ------------------------------------------------------------
-  // LISTENER FCM (WEB)
+  // LISTENER FCM (solo Android)
   // ------------------------------------------------------------
   private listenToFcmStream(): void {
+    if (!NotificationService.fcmStream) {
+      console.log("🔕 FCM non disponibile");
+      return;
+    }
+
     NotificationService.fcmStream.onmessage = async (ev) => {
       const data = ev.data;
       const type = data.type;
