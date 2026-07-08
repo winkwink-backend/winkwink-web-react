@@ -1,0 +1,178 @@
+/* ================================
+   SFONDO
+================================ */
+.wink-scaffold {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #000;
+}
+
+.wink-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+/* ================================
+   CONTENUTO PRINCIPALE
+================================ */
+.wink-content {
+  padding: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ================================
+   HEADER STANDARD
+================================ */
+.wink-header {
+  margin-bottom: 20px;
+}
+
+.wink-header-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wink-logo {
+  width: 48px;
+  height: 48px;
+}
+
+.wink-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(255,255,255,0.4);
+}
+
+/* ================================
+   AVATAR
+================================ */
+.wink-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wink-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wink-avatar-placeholder {
+  font-size: 22px;
+  color: #fff;
+}
+
+/* ================================
+   HEADER ICONS
+================================ */
+.wink-header-icons {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.wink-icon-btn {
+  background: #222;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.wink-icon-btn:hover {
+  background: #444;
+}
+
+/* Badge notifiche */
+.wink-icon-notification {
+  position: relative;
+}
+
+.wink-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+/* ================================
+   BODY
+================================ */
+.wink-body {
+  margin-top: 20px;
+  font-size: 16px;
+  min-height: 300px;
+}
+
+/* ================================
+   FLOATING BUTTON
+================================ */
+.wink-floating {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+}
+
+/* ================================
+   PALETTE COLORI
+================================ */
+.wink-palette-container {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 50;
+}
+
+.wink-palette-toggle {
+  cursor: pointer;
+}
+
+.wink-palette-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.wink-palette-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.wink-palette-color {
+  width: 36px;
+  height: 36px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.wink-palette-color:hover {
+  transform: scale(1.1);
+}
