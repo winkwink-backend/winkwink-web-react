@@ -23,18 +23,22 @@ export default function AudioSecretPage() {
 
   const [bars, setBars] = useState<number[]>(Array.from({ length: 12 }, () => 5));
 
-  const timerRef = useRef<NodeJS.Timer | null>(null);
-  const waveTimerRef = useRef<NodeJS.Timer | null>(null);
+  // ⭐ FIX: timerRef e waveTimerRef devono essere number | null
+  const timerRef = useRef<number | null>(null);
+  const waveTimerRef = useRef<number | null>(null);
 
   // ⭐ Waveform animation
   const startWaveform = () => {
-    waveTimerRef.current = setInterval(() => {
+    waveTimerRef.current = window.setInterval(() => {
       setBars(Array.from({ length: 12 }, () => Math.random() * 40 + 5));
     }, 120);
   };
 
   const stopWaveform = () => {
-    if (waveTimerRef.current) clearInterval(waveTimerRef.current);
+    if (waveTimerRef.current !== null) {
+      clearInterval(waveTimerRef.current);
+      waveTimerRef.current = null;
+    }
   };
 
   // ⭐ Start recording
@@ -53,7 +57,7 @@ export default function AudioSecretPage() {
       setRecordedDuration(0);
       setPlayPosition(0);
 
-      timerRef.current = setInterval(() => {
+      timerRef.current = window.setInterval(() => {
         setRecordedDuration((d) => d + 1);
       }, 1000);
 
@@ -71,7 +75,10 @@ export default function AudioSecretPage() {
     recorder.stop();
     stopWaveform();
 
-    if (timerRef.current) clearInterval(timerRef.current);
+    if (timerRef.current !== null) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
 
     recorder.onstop = () => {
       const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });

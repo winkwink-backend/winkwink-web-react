@@ -1,24 +1,22 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
-type Props = {
-  payloadSize: number;
-  capacity: number;
-  visibleImage: File | null;
-};
-
-export function showEncryptPreviewDialog({
-  payloadSize,
-  capacity,
-  visibleImage,
-}: Props): Promise<boolean> {
+export function showEncryptPreviewDialog(imageUrl: string): Promise<boolean> {
   return new Promise((resolve) => {
+    // ⭐ Creiamo un nodo DOM per il modal
     const modalRoot = document.createElement("div");
     document.body.appendChild(modalRoot);
 
+    // ⭐ Creiamo la root React 18
+    const root = createRoot(modalRoot);
+
     const close = (result: boolean) => {
-      ReactDOM.unmountComponentAtNode(modalRoot);
+      // ⭐ React 18: unmount corretto
+      root.unmount();
+
+      // ⭐ Rimuoviamo il nodo dal DOM
       modalRoot.remove();
+
       resolve(result);
     };
 
@@ -30,7 +28,7 @@ export function showEncryptPreviewDialog({
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(0,0,0,0.5)",
+          backgroundColor: "rgba(0,0,0,0.85)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -39,75 +37,43 @@ export function showEncryptPreviewDialog({
       >
         <div
           style={{
-            backgroundColor: "white",
+            backgroundColor: "#222",
             padding: 20,
             borderRadius: 12,
-            width: 300,
+            textAlign: "center",
+            maxWidth: "90%",
           }}
         >
-          <h3>Anteprima cifratura</h3>
-
-          <div style={{ marginTop: 10 }}>
-            <div>
-              Dimensione payload: {Math.floor(payloadSize / 1024)} KB
-            </div>
-            <div>
-              Capacità immagine: {Math.floor(capacity / 1024)} KB
-            </div>
-
-            {visibleImage && (
-              <img
-                src={URL.createObjectURL(visibleImage)}
-                alt="preview"
-                style={{
-                  marginTop: 10,
-                  height: 80,
-                  borderRadius: 8,
-                  objectFit: "cover",
-                }}
-              />
-            )}
-          </div>
-
-          <div
+          <img
+            src={imageUrl}
+            alt="Preview"
             style={{
-              marginTop: 20,
-              display: "flex",
-              justifyContent: "flex-end",
-              gap: 10,
+              maxWidth: "100%",
+              borderRadius: 8,
+              marginBottom: 20,
             }}
-          >
-            <button
-              onClick={() => close(false)}
-              style={{
-                padding: "8px 12px",
-                backgroundColor: "#ccc",
-                borderRadius: 8,
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Annulla
-            </button>
+          />
 
-            <button
-              onClick={() => close(true)}
-              style={{
-                padding: "8px 12px",
-                backgroundColor: "#C99700",
-                color: "white",
-                borderRadius: 8,
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Procedi
-            </button>
-          </div>
+          <button
+            className="wink-button"
+            onClick={() => close(true)}
+            style={{ marginRight: 10 }}
+          >
+            ✔ Conferma
+          </button>
+
+          <button
+            className="wink-button"
+            onClick={() => close(false)}
+            style={{ backgroundColor: "#444" }}
+          >
+            ✖ Annulla
+          </button>
         </div>
       </div>
     );
 
-    ReactDOM.render(<Modal />, modalRoot);
+    // ⭐ React 18: render corretto
+    root.render(<Modal />);
   });
 }
