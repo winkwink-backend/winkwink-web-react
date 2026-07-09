@@ -18,7 +18,8 @@ export const StartupPage: React.FC = () => {
 
   const runStartupFlow = async () => {
     // ⭐ 1️⃣ Bypass SOLO per ACCETTA (prima notifica)
-    const bypass = await StorageService.getBypassLock();
+    const bypass = StorageService.getBypassLockSync();
+
 
     if (bypass) {
       await StorageService.setBypassLock(false);
