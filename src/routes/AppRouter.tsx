@@ -2,22 +2,49 @@
 
 console.log("FRONTEND SERVER: AppRouter MOUNTED");
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "../pages/LoginPage";
 import PasswordGatePage from "../pages/PasswordGate";
 import HomePage from "../pages/HomePage";
+import PasswordResetRequestPage from "../pages/PasswordResetRequestPage";
 
 import { StorageService } from "../services/StorageService";
 import { AppRoutes } from "./AppRoutes";
-import PasswordResetRequestPage from "../pages/PasswordResetRequestPage";
-
 
 export default function AppRouter() {
-  const token = StorageService.getAuthTokenSync();
-  const bypass = StorageService.getBypassLockSync();
 
+  // ⭐ Stato React che rappresenta l’autenticazione
+  const [authState, setAuthState] = useState(() => ({
+    token: StorageService.getAuthTokenSync(),
+    bypass: StorageService.getBypassLockSync(),
+  }));
+
+  // ⭐ Router si aggiorna quando cambia il localStorage o arriva auth_update
+  useEffect(() => {
+    const handleAuthChange = () => {
+      setAuthState({
+        token: StorageService.getAuthTokenSync(),
+        bypass: StorageService.getBypassLockSync(),
+      });
+    };
+
+    window.addEventListener("storage", handleAuthChange);
+    window.addEventListener("auth_update", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("storage", handleAuthChange);
+      window.removeEventListener("auth_update", handleAuthChange);
+    };
+  }, []);
+
+  const { token, bypass } = authState;
+
+  console.log("ROUTER LIVE STATE -> Token:", !!token, "| Bypass:", !!bypass);
+  console.log("RAW LOCAL:", localStorage.getItem("bypassLock"));
+
+  // ⭐ LOGIN
   if (!token) {
     return (
       <Routes>
@@ -27,15 +54,14 @@ export default function AppRouter() {
     );
   }
 
-  console.log("BYPASS VALUE:", bypass);
-  console.log("RAW LOCAL:", localStorage.getItem("bypassLock"));
-
+  // ⭐ PASSWORD GATE
   if (!bypass) {
     return (
       <Routes>
+        <Route path={AppRoutes.passwordGate} element={<PasswordGatePage />} />
         <Route
-          path={AppRoutes.passwordGate}
-          element={<PasswordGatePage />}
+          path={AppRoutes.passwordResetRequest}
+          element={<PasswordResetRequestPage />}
         />
         <Route
           path="*"
@@ -45,11 +71,15 @@ export default function AppRouter() {
     );
   }
 
+  // ⭐ HOME
   return (
     <Routes>
       <Route path={AppRoutes.home} element={<HomePage />} />
+      <Route
+        path={AppRoutes.passwordResetRequest}
+        element={<PasswordResetRequestPage />}
+      />
       <Route path="*" element={<Navigate to={AppRoutes.home} replace />} />
-      <Route path={AppRoutes.passwordResetRequest} element={<PasswordResetRequestPage />} />
     </Routes>
   );
 }
