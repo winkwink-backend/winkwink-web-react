@@ -130,7 +130,7 @@ export default function PasswordGate() {
       try {
         const uid = AppState.currentUser?.id;
         if (uid) {
-          SignalingService.instance.connect(uid);
+          await SignalingService.instance.connect(uid);
         }
       } catch (e) {
         console.error("Errore connessione socket:", e);
@@ -139,7 +139,7 @@ export default function PasswordGate() {
       // 7) Vai alla Home
       setTimeout(() => {
        navigate(AppRoutes.home);
-      }, 10);
+      }, 0);
 
     } catch (e) {
       setError("Errore imprevisto: " + e);
