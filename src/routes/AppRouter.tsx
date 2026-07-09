@@ -1,5 +1,8 @@
 // src/routes/AppRouter.tsx
 
+console.log("FRONTEND SERVER: AppRouter MOUNTED");
+
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -36,16 +39,20 @@ export default function AppRouter() {
 
 
   if (!bypass) {
-    return (
-      <Routes>
-        <Route path={AppRoutes.passwordGate} element={<PasswordGatePage />} />
-        <Route
-          path="*"
-          element={<Navigate to={AppRoutes.passwordGate} replace />}
-        />
-      </Routes>
-    );
-  }
+  return (
+    <Routes>
+      <Route
+        path={AppRoutes.passwordGate}
+        element={<PasswordGatePage />}
+      />
+      <Route
+        path="*"
+        element={<Navigate to={AppRoutes.passwordGate} replace />}
+      />
+    </Routes>
+  );
+}
+
 
   // ------------------------------------------------------------
   // 3) bypassLock = true → HomePage
