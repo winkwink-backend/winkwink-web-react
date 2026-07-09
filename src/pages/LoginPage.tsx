@@ -86,6 +86,7 @@ export default function LoginPage() {
     const authToken = response.authToken;
 
     await StorageService.saveAuthToken(authToken);
+    window.dispatchEvent(new Event("auth_update"));
     await StorageService.saveUserId(user.id);
     await StorageService.saveAlias(user.alias);
 

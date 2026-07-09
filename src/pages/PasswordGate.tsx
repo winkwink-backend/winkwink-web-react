@@ -146,7 +146,13 @@ export default function PasswordGate() {
       } catch (e) {
         console.error("Errore connessione socket:", e);
       }
+      
+      // ⭐ Password corretta → abilita bypassLock
+      await StorageService.setBypassLock(true);
 
+      // ⭐ Notifica il router che lo stato auth è cambiato
+      window.dispatchEvent(new Event("auth_update"));
+      
       // 7) Vai alla Home
       setTimeout(() => {
        navigate(AppRoutes.home);
