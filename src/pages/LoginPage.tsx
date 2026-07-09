@@ -103,7 +103,9 @@ export default function LoginPage() {
     await StorageService.setHasPassword(false);
     await StorageService.setLoggedIn(true);
 
-    navigate(AppRoutes.passwordGate);
+    setTimeout(() => {
+     navigate(AppRoutes.passwordGate);
+    }, 10);
   }
 
   async function submit() {
