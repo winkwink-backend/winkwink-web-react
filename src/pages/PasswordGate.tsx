@@ -54,16 +54,16 @@ export default function PasswordGate() {
     try {
       // 1) Recupera password locale
       const profileLocal = await StorageService.getProfile();
-      const saved = profileLocal.password;
+      const savedPassword = profileLocal.password;
 
-      if (!saved) {
+      if (!savedPassword) {
         setLoading(false);
         setError("Nessuna password trovata. Riesegui il login.");
         return;
       }
 
       // 2) Controllo password
-      if (password.trim() !== saved) {
+      if (password.trim() !== savedPassword) {
         setLoading(false);
         setError("Password errata");
         return;
@@ -77,6 +77,17 @@ export default function PasswordGate() {
           await StorageService.savePhone(profileServer.phone);
           await StorageService.saveName(profileServer.firstName);
           await StorageService.saveLastName(profileServer.lastName);
+
+           AppState.currentUser = {
+             id: profileServer.id,
+              alias: profileServer.alias,
+             phone: profileServer.phone,
+             name: profileServer.firstName,
+             surname: profileServer.lastName,
+             email: profileServer.email,
+             password: savedPassword,   // quella digitata dall’utente
+             qrData: profileServer.qrData ?? "",
+             };
         }
       } catch (e) {
         console.error("Recupero profilo server fallito:", e);
