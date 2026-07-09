@@ -38,25 +38,38 @@ export class StorageService {
   // 🔥 PROFILO UTENTE
   // ------------------------------------------------------------
   static async saveProfile(params: {
-    name: string;
-    surname: string;
-    email: string;
-    password: string;
-  }): Promise<void> {
-    localStorage.setItem("profile_name", params.name);
-    localStorage.setItem("profile_surname", params.surname);
-    localStorage.setItem("profile_email", params.email);
-    localStorage.setItem("profile_password", params.password);
-  }
+  id: number | string;
+  alias: string;
+  phone: string;
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  qrData: string;
+}): Promise<void> {
+  localStorage.setItem("profile_id", String(params.id));
+  localStorage.setItem("profile_alias", params.alias);
+  localStorage.setItem("profile_phone", params.phone);
+  localStorage.setItem("profile_name", params.name);
+  localStorage.setItem("profile_surname", params.surname);
+  localStorage.setItem("profile_email", params.email);
+  localStorage.setItem("profile_password", params.password);
+  localStorage.setItem("profile_qrData", params.qrData);
+}
 
-  static async getProfile(): Promise<Record<string, string | null>> {
-    return {
-      name: localStorage.getItem("profile_name"),
-      surname: localStorage.getItem("profile_surname"),
-      email: localStorage.getItem("profile_email"),
-      password: localStorage.getItem("profile_password"),
-    };
-  }
+static async getProfile(): Promise<Record<string, string | null>> {
+  return {
+    id: localStorage.getItem("profile_id"),
+    alias: localStorage.getItem("profile_alias"),
+    phone: localStorage.getItem("profile_phone"),
+    name: localStorage.getItem("profile_name"),
+    surname: localStorage.getItem("profile_surname"),
+    email: localStorage.getItem("profile_email"),
+    password: localStorage.getItem("profile_password"),
+    qrData: localStorage.getItem("profile_qrData"),
+  };
+}
+
 
   // ------------------------------------------------------------
   // 🔥 ALIAS

@@ -10,15 +10,11 @@ import { AppRoutes } from "../routes/AppRoutes";
 import { StorageService } from "../services/StorageService";
 import { ApiService } from "../services/ApiService";
 import { PresenceService } from "../services/PresenceService";
-
 import { showErrorDialog, showInfoDialog } from "../utils/dialogs";
 
 export default function LoginPage() {
   const navigate = useNavigate();
 
-  // ------------------------------------------------------------
-  // STATE
-  // ------------------------------------------------------------
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [alias, setAlias] = useState("");
@@ -40,14 +36,10 @@ export default function LoginPage() {
   const [obscureConfirm, setObscureConfirm] = useState(true);
   const [obscureRecover, setObscureRecover] = useState(true);
 
-  // ------------------------------------------------------------
-  // PREFIX LOCALE (web)
-  // ------------------------------------------------------------
   useEffect(() => {
     try {
       const locale = navigator.language.toUpperCase();
       const iso = locale.split("-")[1];
-
       const map: Record<string, string> = {
         IT: "+39",
         FR: "+33",
@@ -55,14 +47,10 @@ export default function LoginPage() {
         ES: "+34",
         US: "+1",
       };
-
       setPrefix(map[iso] ?? "+39");
     } catch (_) {}
   }, []);
 
-  // ------------------------------------------------------------
-  // UTILS
-  // ------------------------------------------------------------
   function normalizePhone(prefix: string, number: string) {
     const clean = number.replace(/[^0-9]/g, "");
     const cleanPrefix = prefix.replace(/[^0-9+]/g, "");
@@ -78,9 +66,6 @@ export default function LoginPage() {
     return hasUpper && hasLower && hasDigit && hasSpecial;
   }
 
-  // ------------------------------------------------------------
-  // RECUPERO PROFILO
-  // ------------------------------------------------------------
   async function recoverProfile() {
     if (!recoverAlias.trim() || !recoverPassword.trim()) {
       await showErrorDialog("Errore", "Compila tutti i campi");
@@ -88,8 +73,8 @@ export default function LoginPage() {
     }
 
     const response = await ApiService.recoverProfile(
-     recoverAlias.trim(),
-     recoverPassword.trim()
+      recoverAlias.trim(),
+      recoverPassword.trim()
     );
 
     if (!response || response.error) {
@@ -105,10 +90,14 @@ export default function LoginPage() {
     await StorageService.saveAlias(user.alias);
 
     await StorageService.saveProfile({
+      id: user.id,
+      alias: user.alias,
+      phone: user.phone,
       name: user.name,
       surname: user.last_name,
       email: user.email,
       password: recoverPassword.trim(),
+      qrData: "",
     });
 
     await StorageService.setHasPassword(false);
@@ -117,17 +106,16 @@ export default function LoginPage() {
     navigate(AppRoutes.passwordGate);
   }
 
-  // ------------------------------------------------------------
-  // REGISTRAZIONE
-  // ------------------------------------------------------------
   async function submit() {
-    if (!firstName.trim() ||
-        !lastName.trim() ||
-        !alias.trim() ||
-        !phone.trim() ||
-        !email.trim() ||
-        !password.trim() ||
-        !confirmPassword.trim()) {
+    if (
+      !firstName.trim() ||
+      !lastName.trim() ||
+      !alias.trim() ||
+      !phone.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
+    ) {
       await showErrorDialog("Errore", "Compila tutti i campi");
       return;
     }
@@ -165,22 +153,7 @@ export default function LoginPage() {
       email: email.trim(),
     });
 
-    if (!response) {
-      await showErrorDialog("Errore", "Errore server");
-      return;
-    }
-
-    if (response.error === "ALIAS_REQUIRED") {
-      await showErrorDialog("Errore", "Alias mancante");
-      return;
-    }
-
-    if (response.error === "ALIAS_TAKEN") {
-      await showErrorDialog("Errore", "Alias già in uso");
-      return;
-    }
-
-    if (response.error || !response.user) {
+    if (!response || response.error || !response.user) {
       await showErrorDialog("Errore", "Errore server");
       return;
     }
@@ -190,14 +163,19 @@ export default function LoginPage() {
     await StorageService.saveAuthToken(response.authToken);
     await StorageService.saveUserId(serverId);
     await StorageService.saveQrData("");
+
     await StorageService.saveProfile({
+      id: serverId,
+      alias: alias.trim(),
+      phone: normalizedPhone,
       name: firstName.trim(),
       surname: lastName.trim(),
       email: email.trim(),
       password: password.trim(),
+      qrData: "",
     });
-    await StorageService.saveAlias(alias.trim());
 
+    await StorageService.saveAlias(alias.trim());
     await StorageService.setHasPassword(true);
     await StorageService.setLoggedIn(true);
 
@@ -208,9 +186,6 @@ export default function LoginPage() {
     navigate(AppRoutes.passwordGate);
   }
 
-  // ------------------------------------------------------------
-  // RENDER
-  // ------------------------------------------------------------
   return (
     <WinkWinkScaffold
       showColorSelector={false}
@@ -221,7 +196,6 @@ export default function LoginPage() {
       }
     >
       <div className="login-container">
-        {/* RECUPERO PROFILO */}
         <h3 className="login-title">Hai già un profilo?</h3>
 
         <input
@@ -243,7 +217,6 @@ export default function LoginPage() {
 
         <div className="login-divider" />
 
-        {/* LINK REGISTRAZIONE */}
         {!showRegistration && (
           <button
             className="login-link"
@@ -253,7 +226,6 @@ export default function LoginPage() {
           </button>
         )}
 
-        {/* REGISTRAZIONE */}
         {showRegistration && (
           <>
             <input
