@@ -13,7 +13,7 @@ import { AppRoutes } from "./AppRoutes";
 export default function AppRouter() {
   // 🔥 Letture sincrone (senza flicker)
   const token = StorageService.getAuthTokenSync();
-  const bypass = StorageService.getBypassLockSync(); // versione corretta
+  const bypass = StorageService.getBypassLockSync(); 
 
   // ------------------------------------------------------------
   // 1) Nessun token → LoginPage

@@ -1,4 +1,4 @@
-// src/pages/PasswordGatePage.tsx
+// src/pages/PasswordGate.tsx
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ import { AppState } from "../services/AppState";
 import { showExitDialog, showErrorDialog, showInfoDialog } from "../utils/dialogs";
 import { AppRoutes } from "../routes/AppRoutes";
 
-export default function PasswordGatePage() {
+export default function PasswordGate() {
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
@@ -158,7 +158,7 @@ export default function PasswordGatePage() {
       }
     >
       <div style={{ padding: "24px", color: "white" }}>
-        <p style={{ textAlign: "center", color: "white70" }}>
+        <p style={{ textAlign: "center", color: "#FFFFFFB3" }}>
           Inserisci la tua password per accedere
         </p>
 
@@ -196,6 +196,8 @@ export default function PasswordGatePage() {
           </button>
         </div>
       </div>
+      console.log("PasswordGate RENDER");
+      return <div style={{ color: "red" }}>TEST PASSWORD GATE</div>;
     </WinkWinkScaffold>
   );
 }
