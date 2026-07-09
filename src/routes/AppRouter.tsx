@@ -4,7 +4,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "../pages/LoginPage";
-import PasswordPage from "../pages/PasswordPage";
+import PasswordPage from "../pages/PasswordGate";
 import HomePage from "../pages/HomePage";
 
 import { StorageService } from "../services/StorageService";
