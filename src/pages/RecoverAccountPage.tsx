@@ -63,11 +63,16 @@ export default function RecoverAccountPage() {
     await StorageService.saveAlias(user.alias);
 
     await StorageService.saveProfile({
+      id: user.id,
+      alias: user.alias,
+      phone: user.phone,
       name: user.name,
-      surname: user.lastName,
+      surname: user.last_name,
       email: user.email,
       password: user.password,
+      qrData: "",
     });
+
 
     await StorageService.setHasPassword(true);
     await StorageService.setLoggedIn(true);
