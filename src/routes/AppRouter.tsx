@@ -31,6 +31,10 @@ export default function AppRouter() {
   // 2) Token presente → PasswordGate SEMPRE
   //    (a meno che bypassLock sia attivo)
   // ------------------------------------------------------------
+  console.log("BYPASS VALUE:", bypass);
+  console.log("RAW LOCAL:", localStorage.getItem("bypassLock"));
+
+
   if (!bypass) {
     return (
       <Routes>
