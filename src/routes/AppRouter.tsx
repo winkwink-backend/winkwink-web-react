@@ -11,6 +11,8 @@ import HomePage from "../pages/HomePage";
 
 import { StorageService } from "../services/StorageService";
 import { AppRoutes } from "./AppRoutes";
+import PasswordResetRequestPage from "../pages/PasswordResetRequestPage";
+
 
 export default function AppRouter() {
   const token = StorageService.getAuthTokenSync();
@@ -47,6 +49,7 @@ export default function AppRouter() {
     <Routes>
       <Route path={AppRoutes.home} element={<HomePage />} />
       <Route path="*" element={<Navigate to={AppRoutes.home} replace />} />
+      <Route path={AppRoutes.passwordResetRequest} element={<PasswordResetRequestPage />} />
     </Routes>
   );
 }

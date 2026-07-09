@@ -137,7 +137,10 @@ export default function PasswordGate() {
       }
 
       // 7) Vai alla Home
-      navigate(AppRoutes.home);
+      setTimeout(() => {
+       navigate(AppRoutes.home);
+      }, 10);
+
     } catch (e) {
       setError("Errore imprevisto: " + e);
     }
@@ -196,8 +199,6 @@ export default function PasswordGate() {
           </button>
         </div>
       </div>
-      console.log("PasswordGate RENDER");
-      return <div style={{ color: "red" }}>TEST PASSWORD GATE</div>;
     </WinkWinkScaffold>
   );
 }
