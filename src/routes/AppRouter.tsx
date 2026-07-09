@@ -4,15 +4,16 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "../pages/LoginPage";
-import PasswordPage from "../pages/PasswordGate";
+import PasswordGatePage from "../pages/PasswordGate";
 import HomePage from "../pages/HomePage";
 
 import { StorageService } from "../services/StorageService";
 import { AppRoutes } from "./AppRoutes";
 
 export default function AppRouter() {
+  // 🔥 Letture sincrone (senza flicker)
   const token = StorageService.getAuthTokenSync();
-  const bypass = StorageService.getBypassLock(); // opzionale
+  const bypass = StorageService.getBypassLockSync(); // versione corretta
 
   // ------------------------------------------------------------
   // 1) Nessun token → LoginPage
@@ -27,13 +28,13 @@ export default function AppRouter() {
   }
 
   // ------------------------------------------------------------
-  // 2) Token presente → PasswordPage SEMPRE
+  // 2) Token presente → PasswordGate SEMPRE
   //    (a meno che bypassLock sia attivo)
   // ------------------------------------------------------------
   if (!bypass) {
     return (
       <Routes>
-        <Route path={AppRoutes.passwordGate} element={<PasswordPage />} />
+        <Route path={AppRoutes.passwordGate} element={<PasswordGatePage />} />
         <Route
           path="*"
           element={<Navigate to={AppRoutes.passwordGate} replace />}

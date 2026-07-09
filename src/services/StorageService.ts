@@ -23,9 +23,9 @@ export class StorageService {
     localStorage.setItem("bypassLock", JSON.stringify(value));
   }
 
-  static async getBypassLock(): Promise<boolean> {
-    return JSON.parse(localStorage.getItem("bypassLock") || "false");
-  }
+  static getBypassLockSync(): boolean {
+  return JSON.parse(localStorage.getItem("bypassLock") || "false");
+ }
 
   // ------------------------------------------------------------
   // 🔥 PASSWORD FLAG
