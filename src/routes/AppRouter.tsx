@@ -1,6 +1,9 @@
 // src/routes/AppRouter.tsx
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+
+console.log("FRONTEND SERVER: AppRouter MOUNTED");
+
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "../pages/LoginPage";
 import PasswordGatePage from "../pages/PasswordGate";
@@ -10,55 +13,40 @@ import { StorageService } from "../services/StorageService";
 import { AppRoutes } from "./AppRoutes";
 
 export default function AppRouter() {
-  // 1. Usiamo lo stato per rendere il router reattivo ai cambiamenti
-  const [token, setToken] = useState(() => StorageService.getAuthTokenSync());
-  const [bypass, setBypass] = useState(() => StorageService.getBypassLockSync());
-  const location = useLocation();
+  const token = StorageService.getAuthTokenSync();
+  const bypass = StorageService.getBypassLockSync();
 
-  // 2. Sincronizziamo lo stato quando cambiamo pagina (o tramite eventi)
-  useEffect(() => {
-    setToken(StorageService.getAuthTokenSync());
-    setBypass(StorageService.getBypassLockSync());
-  }, [location]); // Si aggiorna ad ogni cambio di rotta
+  if (!token) {
+    return (
+      <Routes>
+        <Route path={AppRoutes.login} element={<LoginPage />} />
+        <Route path="*" element={<Navigate to={AppRoutes.login} replace />} />
+      </Routes>
+    );
+  }
 
-  // 3. Albero delle rotte unico e centralizzato
+  console.log("BYPASS VALUE:", bypass);
+  console.log("RAW LOCAL:", localStorage.getItem("bypassLock"));
+
+  if (!bypass) {
+    return (
+      <Routes>
+        <Route
+          path={AppRoutes.passwordGate}
+          element={<PasswordGatePage />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={AppRoutes.passwordGate} replace />}
+        />
+      </Routes>
+    );
+  }
+
   return (
     <Routes>
-      {/* Rotta Login: accessibile solo se NON c'è il token */}
-      <Route 
-        path={AppRoutes.login} 
-        element={!token ? <LoginPage /> : <Navigate to={bypass ? AppRoutes.home : AppRoutes.passwordGate} replace />} 
-      />
-
-      {/* Rotta Password Gate: accessibile solo se c'è il token MA non il bypass */}
-      <Route 
-        path={AppRoutes.passwordGate} 
-        element={
-          !token ? <Navigate to={AppRoutes.login} replace /> : 
-          bypass ? <Navigate to={AppRoutes.home} replace /> : 
-          <PasswordGatePage />
-        } 
-      />
-
-      {/* Rotta Home: accessibile solo se ci sono sia token che bypass */}
-      <Route 
-        path={AppRoutes.home} 
-        element={
-          !token ? <Navigate to={AppRoutes.login} replace /> : 
-          !bypass ? <Navigate to={AppRoutes.passwordGate} replace /> : 
-          <HomePage />
-        } 
-      />
-
-      {/* Fallback globale per rotte sconosciute */}
-      <Route 
-        path="*" 
-        element={
-          !token ? <Navigate to={AppRoutes.login} replace /> : 
-          !bypass ? <Navigate to={AppRoutes.passwordGate} replace /> : 
-          <Navigate to={AppRoutes.home} replace />
-        } 
-      />
+      <Route path={AppRoutes.home} element={<HomePage />} />
+      <Route path="*" element={<Navigate to={AppRoutes.home} replace />} />
     </Routes>
   );
 }
