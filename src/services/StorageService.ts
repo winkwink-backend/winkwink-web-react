@@ -364,6 +364,13 @@ export class StorageService {
   }
 
   // ------------------------------------------------------------
+// 🔥 SYNC METHODS (per AppRouter)
+// ------------------------------------------------------------
+   static getAuthTokenSync(): string | null {
+     return localStorage.getItem("auth_token");
+  }
+
+  // ------------------------------------------------------------
   // 🔥 CLEAR ALL
   // ------------------------------------------------------------
   static async clearAll(): Promise<void> {

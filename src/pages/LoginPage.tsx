@@ -111,7 +111,7 @@ export default function LoginPage() {
       password: recoverPassword.trim(),
     });
 
-    await StorageService.setHasPassword(true);
+    await StorageService.setHasPassword(false);
     await StorageService.setLoggedIn(true);
 
     navigate(AppRoutes.passwordGate);
