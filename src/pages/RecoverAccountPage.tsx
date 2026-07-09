@@ -72,7 +72,7 @@ export default function RecoverAccountPage() {
     await StorageService.setHasPassword(true);
     await StorageService.setLoggedIn(true);
 
-    navigate("/password-gate", { replace: true });
+    navigate("/passwordGate", { replace: true });
   }
 
   // ------------------------------------------------------------

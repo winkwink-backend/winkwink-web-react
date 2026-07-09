@@ -35,7 +35,7 @@ export const StartupPage: React.FC = () => {
       return;
     }
 
-    navigate("/password-gate", { replace: true });
+    navigate("/passwordGate", { replace: true });
   };
 
   return (
