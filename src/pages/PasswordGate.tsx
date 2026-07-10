@@ -15,6 +15,8 @@ import { AppState } from "../services/AppState";
 
 import { showExitDialog, showErrorDialog, showInfoDialog } from "../utils/dialogs";
 import { AppRoutes } from "../routes/AppRoutes";
+import "./passwordgate.css";
+
 
 export default function PasswordGate() {
   const navigate = useNavigate();
@@ -172,50 +174,47 @@ export default function PasswordGate() {
     <WinkWinkScaffold
       showColorSelector={false}
       header={
-        <div style={{ padding: "12px", textAlign: "center" }}>
-          <h2 style={{ color: "white" }}>Password Gate</h2>
-        </div>
-      }
-    >
-      <div style={{ padding: "24px", color: "white" }}>
-        <p style={{ textAlign: "center", color: "#FFFFFFB3" }}>
+       <div className="wink-header-simple">
+         <img
+           src="/assets/icon/marchiologo_winkwink1.png"
+           className="password-logo"
+         />
+         <h2 className="password-title">Password Gate</h2>
+       </div>
+    }
+   >
+      <div className="password-container">
+        <p style={{ color: "#FFFFFFB3" }}>
           Inserisci la tua password per accedere
-        </p>
+       </p>
 
-        <input
+       <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="login-input"
+         className="password-input"
           placeholder="Password"
-          style={{ marginTop: "32px" }}
         />
 
-        {error && (
-          <p style={{ color: "red", marginTop: "12px", textAlign: "center" }}>
-            {error}
-          </p>
+       {error && <p className="password-error">{error}</p>}
+
+       <div style={{ marginTop: "32px" }}>
+         {loading ? (
+           <div>
+             <div className="loader"></div>
+          </div>
+        ) : (
+          <NeonButton label="Accedi" onClick={checkPassword} />
         )}
+       </div>
 
-        <div style={{ marginTop: "32px" }}>
-          {loading ? (
-            <div style={{ textAlign: "center" }}>
-              <div className="loader"></div>
-            </div>
-          ) : (
-            <NeonButton label="Accedi" onClick={checkPassword} />
-          )}
-        </div>
-
-        <div style={{ marginTop: "24px", textAlign: "center" }}>
-          <button
-            className="login-link"
-            onClick={() => navigate(AppRoutes.passwordResetRequest)}
-          >
-            Password dimenticata?
-          </button>
-        </div>
-      </div>
+       <button
+         className="password-link"
+         onClick={() => navigate(AppRoutes.passwordResetRequest)}
+        >
+         Password dimenticata?
+      </button>
+     </div>
     </WinkWinkScaffold>
   );
 }

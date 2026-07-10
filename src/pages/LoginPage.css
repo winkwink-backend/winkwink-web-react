@@ -1,0 +1,105 @@
+/* ================================
+   LOGIN CONTAINER
+================================ */
+.login-container {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 24px;
+  color: white;
+}
+
+/* ================================
+   LOGO
+================================ */
+.login-logo {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px auto;
+  display: block;
+}
+
+/* ================================
+   TITOLI
+================================ */
+.login-title {
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* ================================
+   INPUT
+================================ */
+.login-input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 0 6px rgba(255,255,255,0.2);
+}
+
+.login-input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+/* ================================
+   PHONE ROW
+================================ */
+.login-phone-row {
+  display: flex;
+  gap: 10px;
+}
+
+.login-prefix {
+  padding: 14px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  min-width: 70px;
+  text-align: center;
+}
+
+/* ================================
+   CHECKBOX
+================================ */
+.login-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  color: white;
+}
+
+/* ================================
+   LINK
+================================ */
+.login-link {
+  background: none;
+  border: none;
+  color: #c084fc;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   DIVIDER
+================================ */
+.login-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 20px 0;
+}

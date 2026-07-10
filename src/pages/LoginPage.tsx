@@ -194,7 +194,11 @@ export default function LoginPage() {
       showColorSelector={false}
       header={
         <div className="wink-header-simple">
-          <h2 style={{ color: "white" }}>Accedi o Registrati</h2>
+          <img
+             src="/assets/icon/marchiologo_winkwink1.png"
+             className="login-logo"
+           />   
+          <h2 style={{ color: "white", textAlign: "center" }}>Accedi o Registrati</h2>
         </div>
       }
     >
