@@ -63,7 +63,7 @@ export default function WinkWinkScaffold({
   return (
     <div className="wink-scaffold">
       {/* SFONDO */}
-      <img src="/assets/icon/wink-bg.png" className="wink-bg" />
+      <img src="/assets/wink-bg.png" className="wink-bg" />
 
       <div className="wink-content">
         {/* HEADER CUSTOM */}

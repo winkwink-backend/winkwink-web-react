@@ -126,4 +126,15 @@ code {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+.wink-bg {
+  background-image: url("/assets/wink-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
 
