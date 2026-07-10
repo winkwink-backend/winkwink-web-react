@@ -11,6 +11,8 @@ import { StorageService } from "../services/StorageService";
 import { ApiService } from "../services/ApiService";
 import { PresenceService } from "../services/PresenceService";
 import { showErrorDialog, showInfoDialog } from "../utils/dialogs";
+import "./loginpage.css";
+
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -195,7 +197,7 @@ export default function LoginPage() {
       header={
         <div className="wink-header-simple">
           <img
-             src="/assets/icon/marchiologo_winkwink1.png"
+             src="/assets/marchiologo_winkwink1.png"
              className="login-logo"
            />   
           <h2 style={{ color: "white", textAlign: "center" }}>Accedi o Registrati</h2>

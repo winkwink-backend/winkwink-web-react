@@ -176,7 +176,7 @@ export default function PasswordGate() {
       header={
        <div className="wink-header-simple">
          <img
-           src="/assets/icon/marchiologo_winkwink1.png"
+           src="/assets/marchiologo_winkwink1.png"
            className="password-logo"
          />
          <h2 className="password-title">Password Gate</h2>
