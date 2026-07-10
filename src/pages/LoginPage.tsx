@@ -1,5 +1,4 @@
 // src/pages/LoginPage.tsx
-//per push dopo tolgo
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +11,7 @@ import { StorageService } from "../services/StorageService";
 import { ApiService } from "../services/ApiService";
 import { PresenceService } from "../services/PresenceService";
 import { showErrorDialog, showInfoDialog } from "../utils/dialogs";
-import "./loginpage.css";
+import "./LoginPage.css";
 
 
 export default function LoginPage() {
